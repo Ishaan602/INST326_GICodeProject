@@ -9,7 +9,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 def clean_text(text: str) -> str:
     text = text.lower()
     return text
-
+#this is for cleaning the text
 
 def build_inverted_index(documents: List[str]) -> Dict[str, Set[int]]:
     index = defaultdict(set)
@@ -18,18 +18,18 @@ def build_inverted_index(documents: List[str]) -> Dict[str, Set[int]]:
         for token in set(tokens):
             index[token].add(doc_id)
     return dict(index)
-
+#this builds the inverted index
 
 def boolean_retrieval(query: str, inverted_index: Dict[str, Set[int]]) -> Set[int]:
     tokens = clean_text(query).split()
     if not tokens:
         return set()
-
+#
     result = inverted_index.get(tokens[0], set())
     for token in tokens[1:]:
         result = result.intersection(inverted_index.get(token, set()))
     return result
-
+#This searches a collection of documents
 
 def rank_documents(query: str, documents: List[str], top_k: int = 5) -> List[tuple]:
     vectorizer = TfidfVectorizer(stop_words='english')
@@ -39,7 +39,7 @@ def rank_documents(query: str, documents: List[str], top_k: int = 5) -> List[tup
     scores = cosine_similarity(query_vec, doc_vecs).flatten()
     ranked = sorted(enumerate(scores), key=lambda x: x[1], reverse=True)
     return ranked[:top_k]
-
+#This Function ranks the documents in based on each word
 
 def semantic_search(query: str, documents: List[str], model=None, top_k: int = 5) -> List[tuple]:
     if model is None:
@@ -50,3 +50,4 @@ def semantic_search(query: str, documents: List[str], model=None, top_k: int = 5
     similarities = cosine_similarity(query_emb, doc_embs).flatten()
     ranked = sorted(enumerate(similarities), key=lambda x: x[1], reverse=True)
     return ranked[:top_k]
+#This function finds the documents that are most similiar in meaning to ulitmately give a query
