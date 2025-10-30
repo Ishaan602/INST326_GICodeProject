@@ -207,7 +207,7 @@ semantic_search("AI techniques", docs, top_k=2)
 # Returns: [(0, 0.5), (1, 0.25)]
 ```
 
-## Utility Functions (`src/utils.py`)
+## Utility Functions
 
 ### `validate_information(name, address)`
 

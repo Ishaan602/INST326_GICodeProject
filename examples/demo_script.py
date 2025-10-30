@@ -17,10 +17,7 @@ from library_name import (
     highlight_query_terms,
     normalize_query,
     truncate_snippet,
-    count_term_frequency
-)
-
-from utils import (
+    count_term_frequency,
     validate_information,
     format_query,
     calculate_user_distance,
