@@ -2,11 +2,10 @@
 
 # Import specific functions
 from src.library_name import filter_sort_paginate_results, highlight_query_terms, normalize_query
-from src.utils import validate_information, format_query
+from src.library_name import validate_information, format_query
 
 # Or import the entire module
-import src.library_name as ir
-import src.utils as utils
+import src.library_name as lib
 ```
 
 ### Normalizing and Processing Queries
@@ -268,7 +267,7 @@ for query in example_queries:
 ### Information Validation
 
 ```python
-from src.utils import validate_information, format_query
+from src.library_name import validate_information, format_query
 
 # Clean and validate user information
 raw_name = "  John   ,   Doe  "
@@ -290,7 +289,7 @@ print(f"Formatted: {person_info}")
 ### Distance Calculations
 
 ```python
-from src.utils import calculate_user_distance
+from src.library_name import calculate_user_distance
 
 try:
     # Calculate distance difference
@@ -309,7 +308,7 @@ except ValueError as e:
 ### Menu Validation and Order Processing
 
 ```python
-from src.utils import parse_user_order, process_multiple_order_data
+from src.library_name import parse_user_order, process_multiple_order_data
 
 # Restaurant menu
 menu_items = [
@@ -360,7 +359,6 @@ Here's a complete example combining multiple functions:
 
 ```python
 from src.library_name import *
-from src.utils import *
 
 def search_application():
     # Sample documents

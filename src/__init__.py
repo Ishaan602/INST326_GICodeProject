@@ -1,7 +1,7 @@
 """
 INST326 Information Retrieval Function Library
 """
-# Import main functions for easy access
+# Import all functions from the main library
 from .library_name import (
     filter_sort_paginate_results,
     highlight_query_terms,
@@ -12,10 +12,7 @@ from .library_name import (
     build_inverted_index,
     boolean_retrieval,
     rank_documents,
-    semantic_search
-)
-
-from .utils import (
+    semantic_search,
     validate_information,
     format_query,
     calculate_user_distance,

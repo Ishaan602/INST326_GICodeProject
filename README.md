@@ -50,10 +50,9 @@ Functions:
 ```
 INST326_GICodeProject/
 ├── README.md                    # Project overview and setup instructions
-├── src/                         # Source code directory
-│   ├── __init__.py             # Package initialization
-│   ├── library_name.py         # Core information retrieval functions
-│   └── utils.py                # Utility and validation functions
+├── src/
+│   ├── __init__.py            # Package initialization
+│   └── library_name.py        # All functions (IR and utility functions)
 ├── docs/                        # Documentation directory
 │   ├── function_reference.md   # Detailed function documentation
 │   └── usage_examples.md       # Usage examples and tutorials
@@ -82,7 +81,7 @@ pip install -r requirements.txt
 ```python
 # Import the functions you need
 from src.library_name import filter_sort_paginate_results, highlight_query_terms
-from src.utils import validate_information
+from src.library_name import validate_information
 
 # Example: Search documents
 documents = [
@@ -134,7 +133,7 @@ python examples/demo_script.py
 | `rank_documents()` | Rank documents by term frequency similarity |
 | `semantic_search()` | Perform semantic search (falls back to term frequency) |
 
-#### Utilities (`src/utils.py`)
+#### Utility Functions
 
 | Function | Description |
 |----------|-------------|
@@ -200,7 +199,7 @@ for doc_id, score in ranked:
 ### Data Validation Pipeline
 
 ```python
-from src.utils import *
+from src.library_name import *
 
 # Validate user information
 try:
@@ -218,7 +217,7 @@ except ValueError as e:
 ### Order Processing System
 
 ```python
-from src.utils import parse_user_order, process_multiple_order_data
+from src.library_name import parse_user_order, process_multiple_order_data
 
 menu = ["pizza", "burger", "salad", "fries"]
 
@@ -240,7 +239,7 @@ Run the test functions included in each module:
 python src/library_name.py
 
 # Test utility functions  
-python src/utils.py
+python src/library_name.py
 
 # Run comprehensive demo
 python examples/demo_script.py
