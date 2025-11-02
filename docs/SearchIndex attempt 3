@@ -21,7 +21,6 @@ def __init__(
         self._text_field = text_field
         self._id_field = id_field
 
-        # Normalize incoming documents into a consistent dict structure
         self._docs: List[Document] = []
         for i, d in enumerate(documents):
             if isinstance(d, str):
@@ -29,7 +28,7 @@ def __init__(
             elif isinstance(d, dict):
                 if self._text_field not in d or not isinstance(d[self._text_field], str):
                     raise ValueError(f"Document #{i} missing text field '{self._text_field}'")
-                # ensure an id is present
+
                 if self._id_field not in d:
                     d = {**d, self._id_field: f"doc_{i}"}
                 self._docs.append(d)
