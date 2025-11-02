@@ -1,0 +1,12 @@
+Document = Dict[str, Any]
+DocInput = Union[str, Document]
+class SearchIndex:
+def __init__(
+        self,
+        documents: Iterable[DocInput],
+        *,
+        title_field: str = "title",
+        text_field: str = "text",
+        id_field: str = "id",
+        functions: Optional[Dict[str, Callable]] = None,
+ def build_index(self) -> bool:
