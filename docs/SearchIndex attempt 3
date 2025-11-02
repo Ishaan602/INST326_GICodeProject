@@ -9,4 +9,45 @@ def __init__(
         text_field: str = "text",
         id_field: str = "id",
         functions: Optional[Dict[str, Callable]] = None,
- def build_index(self) -> bool:
+    ) -> None:
+        if not isinstance(title_field, str) or not title_field:
+            raise ValueError("title_field must be a non-empty string")
+        if not isinstance(text_field, str) or not text_field:
+            raise ValueError("text_field must be a non-empty string")
+        if not isinstance(id_field, str) or not id_field:
+            raise ValueError("id_field must be a non-empty string")
+
+        self._title_field = title_field
+        self._text_field = text_field
+        self._id_field = id_field
+
+        # Normalize incoming documents into a consistent dict structure
+        self._docs: List[Document] = []
+        for i, d in enumerate(documents):
+            if isinstance(d, str):
+                self._docs.append({self._id_field: f"doc_{i}", self._text_field: d})
+            elif isinstance(d, dict):
+                if self._text_field not in d or not isinstance(d[self._text_field], str):
+                    raise ValueError(f"Document #{i} missing text field '{self._text_field}'")
+                # ensure an id is present
+                if self._id_field not in d:
+                    d = {**d, self._id_field: f"doc_{i}"}
+                self._docs.append(d)
+            else:
+                raise TypeError("Each document must be a str or dict")
+
+        # Inject function library (optionally partial)
+        self._fn: Dict[str, Callable] = functions or {}
+        self._index: Optional[Dict[str, List[Tuple[Any, int]]]] = None
+        self._ready: bool = False
+@property
+    def doc_count(self) -> int:
+        return len(self._docs)
+
+    @property
+    def index_built(self) -> bool:
+        return self._ready
+
+    @property
+    def index_size(self) -> int:
+        return 0 if self._index is None else len(self._index)
