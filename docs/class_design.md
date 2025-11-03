@@ -1,9 +1,4 @@
-# Class Design Documentation
-
-## Architecture Overview
-
-This project transforms the Project 1 function library into an object-oriented system with two core classes that encapsulate related data and behavior for information retrieval operations.
-
+Completed by Ishaan Patel
 ## Class Design
 
 ### 1. Document Class (`src/document.py`)
@@ -140,5 +135,3 @@ results = query.rank_documents(contents)
 for doc_id, score in results:
     highlighted = docs[doc_id].highlight_terms(query.query_terms)
 ```
-
-This object-oriented design provides a clean, maintainable, and extensible foundation for information retrieval operations while preserving all the functionality of the original Project 1 functions.
