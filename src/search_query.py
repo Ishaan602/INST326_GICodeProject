@@ -1,3 +1,4 @@
+# Completed by Ishaan Patel
 """
 SearchQuery Class Module
 

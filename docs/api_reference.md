@@ -1,3 +1,4 @@
+Completed by Ishaan Patel
 # API Reference
 
 ## Document Class
