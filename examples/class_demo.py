@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 """
 Demonstration Script for Document and SearchQuery Classes
 
@@ -9,6 +9,10 @@ the original functions in an object-oriented design.
 
 import sys
 import os
+
+# Add the project root directory to Python path
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, project_root)
 
 from src.document import Document
 from src.search_query import SearchQuery
