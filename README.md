@@ -1,6 +1,15 @@
-# INST326 Information Retrieval Function Library
+# INST326 Information Retrieval System
 
-A comprehensive Python library for information retrieval, text processing, and data validation operations. Developed for INST326 coursework, this library provides essential functions for building search systems, processing user data, and managing information retrieval workflows.
+A comprehensive Python library for information retrieval, text processing, and data validation operations. Now featuring object-oriented design with Document and SearchQuery classes that encapsulate related functionality for building sophisticated search systems.
+
+## 🆕 Project 2 Update: Object-Oriented Design
+
+This project has been transformed from a function-based library into an object-oriented system with two core classes:
+
+- **Document Class**: Represents individual documents with integrated text processing capabilities
+- **SearchQuery Class**: Handles query processing, normalization, and various search operations
+
+The original Project 1 functions are now integrated into these classes while remaining available as standalone functions.
 
 # Team Memebr Names
 Ishaan Patel, Rushan Heaven, Zachary Tong
@@ -51,13 +60,18 @@ Functions:
 INST326_GICodeProject/
 ├── README.md                    # Project overview and setup instructions
 ├── src/
-│   ├── __init__.py            # Package initialization
-│   └── library_name.py        # All functions (IR and utility functions)
+│   ├── __init__.py             # Package initialization
+│   ├── library_name.py         # Original Project 1 functions
+│   ├── document.py             # Document class (NEW)
+│   └── search_query.py         # SearchQuery class (NEW)
 ├── docs/                        # Documentation directory
 │   ├── function_reference.md   # Detailed function documentation
-│   └── usage_examples.md       # Usage examples and tutorials
+│   ├── usage_examples.md       # Usage examples and tutorials
+│   ├── class_design.md         # OOP architecture documentation (NEW)
+│   └── api_reference.md        # Class API documentation (NEW)
 ├── examples/                    # Example usage scripts
-│   └── demo_script.py          # Comprehensive demonstration script
+│   ├── demo_script.py          # Function library demonstration
+│   └── class_demo.py           # Class-based demonstration (NEW)
 └── requirements.txt             # Python dependencies
 ```
 
@@ -78,6 +92,35 @@ pip install -r requirements.txt
 
 ### Basic Usage
 
+#### Object-Oriented Approach (Recommended)
+
+```python
+from src.document import Document
+from src.search_query import SearchQuery
+
+# Create documents
+doc1 = Document("1", "Python Programming", "Learn Python basics and advanced concepts")
+doc2 = Document("2", "Data Science", "Python for data analysis and machine learning")
+
+# Create search query
+query = SearchQuery("Python programming")
+
+# Perform searches
+documents_content = [doc1.content, doc2.content] 
+search_results = query.rank_documents(documents_content, top_k=2)
+
+# Display results with highlighting
+for doc_id, score in search_results:
+    if doc_id == 0:
+        highlighted = doc1.highlight_terms(query.query_terms)
+        snippet = doc1.create_snippet(50)
+        print(f"{doc1.title} (Score: {score:.2f})")
+        print(f"Snippet: {snippet}")
+        print(f"Highlighted: {highlighted}")
+```
+
+#### Function-Based Approach (Original)
+
 ```python
 # Import the functions you need
 from src.library_name import filter_sort_paginate_results, highlight_query_terms
@@ -96,27 +139,58 @@ print(f"Found {results['total_results']} results")
 text = "Learn Python programming fundamentals"
 highlighted = highlight_query_terms(text, ["python", "programming"])
 print(highlighted)  # Output: Learn <b>Python</b> <b>programming</b> fundamentals
-
-# Example: Validate information
-clean_info = validate_information("John Doe", "123 Main St")
-print(clean_info)  # Output: John Doe - 123 Main St
 ```
 
-### Run the Demo
+### Run the Demos
 
 To see all features in action:
 
 ```bash
+# Run the new object-oriented class demonstration
+python examples/class_demo.py
+
+# Run the original function library demonstration  
 python examples/demo_script.py
 ```
 
 ##  Documentation
 
-### Function Reference
+### Class Documentation (NEW)
+- **[Class Design Architecture](docs/class_design.md)** - Object-oriented design principles and architecture
+- **[API Reference](docs/api_reference.md)** - Complete class and method documentation
+
+### Function Reference (Original)
 - **[Complete Function Reference](docs/function_reference.md)** - Detailed documentation for all functions
 - **[Usage Examples](docs/usage_examples.md)** - Practical examples and tutorials
 
-### Core Functions Overview
+### Core Classes Overview (NEW)
+
+#### Document Class (`src/document.py`)
+
+| Method | Description |
+|--------|-------------|
+| `__init__(doc_id, title, content, metadata)` | Initialize document with validation |
+| `clean_content()` | Get normalized lowercase content |
+| `create_snippet(max_chars)` | Create truncated text snippet |
+| `count_term_occurrences(term)` | Count term frequency in document |
+| `highlight_terms(terms, pre, post)` | Highlight search terms in content |
+| `get_word_count()` | Get total word count |
+| `add_metadata(key, value)` | Add document metadata |
+
+#### SearchQuery Class (`src/search_query.py`)
+
+| Method | Description |
+|--------|-------------|
+| `__init__(query)` | Initialize and normalize query |
+| `update_query(new_query)` | Update query and add to history |
+| `boolean_search(documents)` | Find documents containing ALL terms |
+| `rank_documents(documents, top_k)` | Rank by term frequency similarity |
+| `semantic_search(documents, model, top_k)` | Semantic search (fallback to TF) |
+| `get_query_statistics()` | Get query analysis statistics |
+| `contains_term(term)` | Check if query contains term |
+| `get_similar_queries(queries, threshold)` | Find similar queries by overlap |
+
+### Core Functions Overview (Original)
 
 #### Information Retrieval (`src/library_name.py`)
 
