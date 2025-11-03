@@ -1,3 +1,5 @@
+# Completed by Zachery Tong 
+
 class UserProfile:
     """Represents a profile from a user in an infomation retrieval system.
 
