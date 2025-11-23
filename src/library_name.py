@@ -1,3 +1,4 @@
+# Completed by Ishaan Patel
 """
 Information Retrieval Function Library
 
