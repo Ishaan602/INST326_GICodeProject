@@ -1,0 +1,280 @@
+This is system that introduces and allows user-drven and mandated interaction layer.
+It is a modular user/session/order framework tool that allows you to manipulate searches to
+  bring what you are looking for towards you. It adds and uses user profiles, order processing,
+search sessions, a search engine wrap, and a composition-based class relationship. Overall this 
+  new layer brings forth previous elements like classes and functions into a tenacious application
+  very similiar to what a real search-based system would be consist of.
+
+
+
+# src/user_system.py
+
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Tuple, Optional
+
+# Import your existing project pieces
+from src.document import Document
+from src.search_query import SearchQuery
+from src.library_name import (
+    validate_information,
+    format_query,
+    calculate_user_distance,
+    parse_user_order,
+    process_multiple_order_data,
+)
+
+
+# ---------- 1) UserProfile ----------
+
+@dataclass
+class UserProfile:
+    """
+    Represents a single user in the system.
+    Uses validate_information() to check user data.
+    """
+    user_id: str
+    name: str
+    email: str
+    location: Optional[Dict[str, float]] = None  # e.g. {"lat": 39.0, "lon": -76.7}
+    extra_metadata: Dict[str, Any] = field(default_factory=dict)
+
+    def validate(self) -> bool:
+        """
+        Validate the core user information using your existing helper.
+        Adjust the structure to match how validate_information() works in your project.
+        """
+        user_data = {
+            "user_id": self.user_id,
+            "name": self.name,
+            "email": self.email,
+            "location": self.location,
+            "extra_metadata": self.extra_metadata,
+        }
+        return validate_information(user_data)
+
+    def update_location(self, lat: float, lon: float) -> None:
+        self.location = {"lat": lat, "lon": lon}
+
+    def distance_to(self, lat: float, lon: float) -> Optional[float]:
+        """
+        Use calculate_user_distance() to compute distance from this user
+        to another point (e.g., a restaurant or store).
+        """
+        if not self.location:
+            return None
+
+        return calculate_user_distance(
+            self.location["lat"],
+            self.location["lon"],
+            lat,
+            lon,
+        )
+
+
+# ---------- 2) SearchEngine (wrapper around Document + SearchQuery) ----------
+
+class SearchEngine:
+    """
+    Simple search engine façade that uses your existing Document and SearchQuery classes.
+    """
+    def __init__(self, documents: List[Document]):
+        self.documents = documents
+
+    def add_document(self, doc: Document) -> None:
+        self.documents.append(doc)
+
+    def run_query(
+        self,
+        raw_query: str,
+        top_k: int = 10,
+    ) -> List[Tuple[Document, float]]:
+        """
+        Normalize/format the query, then use SearchQuery to rank documents.
+        - Returns a list of (Document, score) tuples.
+        """
+        # Use your existing function to format/normalize the query text.
+        normalized_query = format_query(raw_query)
+
+        query = SearchQuery(normalized_query)
+
+        # We assume SearchQuery.rank_documents takes a list of strings
+        # and returns [(doc_index, score), ...], as in your README example.
+        document_texts = [doc.content for doc in self.documents]
+        ranked_indices = query.rank_documents(document_texts, top_k=top_k)
+
+        results: List[Tuple[Document, float]] = []
+        for idx, score in ranked_indices:
+            results.append((self.documents[idx], score))
+
+        return results
+
+
+# ---------- 3) OrderManager ----------
+
+class OrderManager:
+    """
+    Handles all order-related operations for a single user.
+    Integrates:
+      - parse_user_order()
+      - process_multiple_order_data()
+    """
+    def __init__(self, user_profile: UserProfile):
+        self.user_profile = user_profile
+        self.orders: List[Dict[str, Any]] = []
+
+    def add_order_from_text(self, order_text: str) -> Dict[str, Any]:
+        """
+        Parse a single order string using parse_user_order()
+        and attach user info.
+        """
+        parsed = parse_user_order(order_text)
+        # Attach user_id so we know who owns this order
+        parsed["user_id"] = self.user_profile.user_id
+        self.orders.append(parsed)
+        return parsed
+
+    def bulk_process_orders(self, raw_orders: List[str]) -> List[Dict[str, Any]]:
+        """
+        Use process_multiple_order_data() to process a batch of orders.
+        The implementation of process_multiple_order_data() in your project
+        might already handle parsing; adjust accordingly.
+        """
+        processed = process_multiple_order_data(raw_orders)
+
+        # Optionally attach user_id to each processed order
+        for order in processed:
+            order.setdefault("user_id", self.user_profile.user_id)
+
+        # Extend internal list
+        self.orders.extend(processed)
+        return processed
+
+    def get_order_history(self) -> List[Dict[str, Any]]:
+        return list(self.orders)
+
+
+# ---------- 4) SearchSession (composition of UserProfile + SearchEngine + OrderManager) ----------
+
+class SearchSession:
+    """
+    Represents a single user session in the system.
+
+    Composition:
+      - HAS a UserProfile
+      - HAS a SearchEngine
+      - HAS an OrderManager
+      - HAS a collection of Documents (managed by SearchEngine)
+    """
+    def __init__(
+        self,
+        user_profile: UserProfile,
+        search_engine: SearchEngine,
+        order_manager: Optional[OrderManager] = None,
+    ):
+        self.user_profile = user_profile
+        self.search_engine = search_engine
+        self.order_manager = order_manager or OrderManager(user_profile)
+
+        self.active: bool = True
+        self.recent_queries: List[str] = []
+        self.last_results: List[Tuple[Document, float]] = []
+
+    # ---- Session lifecycle ----
+
+    def end_session(self) -> None:
+        self.active = False
+
+    # ---- Search integration ----
+
+    def search(self, raw_query: str, top_k: int = 5) -> List[Tuple[Document, float]]:
+        """
+        High-level search entry point for the UI.
+        - Stores recent queries
+        - Delegates actual work to SearchEngine
+        """
+        if not self.active:
+            raise RuntimeError("Session is not active")
+
+        self.recent_queries.append(raw_query)
+
+        results = self.search_engine.run_query(raw_query, top_k=top_k)
+        self.last_results = results
+        return results
+
+    # ---- Order integration ----
+
+    def place_order(self, order_text: str) -> Dict[str, Any]:
+        """
+        Handle a single order as part of this session.
+        """
+        if not self.active:
+            raise RuntimeError("Session is not active")
+
+        return self.order_manager.add_order_from_text(order_text)
+
+    def place_bulk_orders(self, order_list: List[str]) -> List[Dict[str, Any]]:
+        if not self.active:
+            raise RuntimeError("Session is not active")
+
+        return self.order_manager.bulk_process_orders(order_list)
+
+    # ---- Convenience methods for UI ----
+
+    def current_user_distance_to_store(self, store_lat: float, store_lon: float) -> Optional[float]:
+        """
+        Use UserProfile + calculate_user_distance() to tell the UI
+        how far the user is from a store.
+        """
+        return self.user_profile.distance_to(store_lat, store_lon)
+
+    def get_summary(self) -> Dict[str, Any]:
+        """
+        Small helper if you want to show a "session summary" box in your UI.
+        """
+        return {
+            "user_id": self.user_profile.user_id,
+            "recent_queries": list(self.recent_queries),
+            "orders_count": len(self.order_manager.orders),
+            "last_results_count": len(self.last_results),
+            "active": self.active,
+        }
+
+
+# ---------- 5) Tiny demo (you can move this to examples/ if you want) ----------
+
+if __name__ == "__main__":
+    # Example documents (you’d normally load these from your data source)
+    doc1 = Document("1", "Python Programming", "Learn Python basics and advanced concepts.")
+    doc2 = Document("2", "Data Science", "Python for data analysis and machine learning.")
+    docs = [doc1, doc2]
+
+    # Build the search engine
+    engine = SearchEngine(docs)
+
+    # Create a user profile
+    user = UserProfile(
+        user_id="u123",
+        name="Rushan Heaven",
+        email="rushan@example.com",
+    )
+    user.update_location(39.0, -76.7)
+
+    # Validate user info
+    is_valid = user.validate()
+    print(f"User valid? {is_valid}")
+
+    # Create a session (composition!)
+    session = SearchSession(user_profile=user, search_engine=engine)
+
+    # Perform a search
+    results = session.search("python programming", top_k=2)
+    print("Search results:")
+    for doc, score in results:
+        print(f"- {doc.title} (score={score:.2f})")
+
+    # Place an order
+    order = session.place_order("2 tacos, 1 burrito, extra salsa")
+    print("Placed order:", order)
+
+    # Show a quick session summary
+    print("Session summary:", session.get_summary())
