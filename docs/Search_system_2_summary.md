@@ -1,4 +1,4 @@
-# Team Member 2 Implementation Summary
+# Team Member Ishaan Patel Implementation Summary
 
 ## Search System Module - Advanced OOP Implementation
 
