@@ -1,5 +1,5 @@
 """
-Search System Module - Team Member 2 Implementation
+Search System Module
 
 This module implements the search system using advanced OOP principles:
 - Abstract Base Classes for search engines
@@ -7,7 +7,7 @@ This module implements the search system using advanced OOP principles:
 - Polymorphic behavior for various search algorithms
 - Integration with Project 1 function library
 
-Author: Team Member 2
+Author: Ishaan Patel
 """
 
 from abc import ABC, abstractmethod
