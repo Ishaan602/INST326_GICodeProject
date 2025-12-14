@@ -1,5 +1,5 @@
 """
-Search System Module - Team Member 1 Implementation
+Search System Module
 
 This module implements the document system using advanced OOP principles:
 - Abstract Base Classes for documents

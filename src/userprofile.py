@@ -431,8 +431,7 @@ def __repr__(self) -> str:
             'UserProfile(name="Ben Franklin", address="20 Money Drive", age="60",
                                     country="United States", distance=11, order="Fish: 2, Steak: 1")'  
         """
-        return f"UserProfile(name={self.__name}, address={self.__address}, age={self.__age},
-        country={self.__country}, distance={self.__distance}, order={self.__user_order})"
+        return f"UserProfile(name={self.__name}, address={self.__address}, age={self.__age}, country={self.__country}, distance={self.__distance}, order={self.__user_order})"
 
     
 

@@ -1,0 +1,30 @@
+# INST326 Search and Order Management System
+# No external dependencies required - uses only Python standard library
+
+# Python version requirement
+python>=3.8
+
+# Standard library modules used:
+# - json: Data persistence and serialization
+# - csv: CSV file import/export
+# - xml.etree.ElementTree: XML parsing and generation
+# - pathlib: Modern file path handling
+# - typing: Type hints and annotations
+# - abc: Abstract base classes
+# - dataclasses: Structured data classes
+# - tempfile: Temporary files for testing
+# - unittest: Testing framework
+# - argparse: Command-line argument parsing
+# - datetime: Timestamp generation
+# - shutil: File operations for tests
+# - sys, os: System operations
+
+# Development tools (optional):
+# mypy: Type checking (pip install mypy)
+# black: Code formatting (pip install black)
+# flake8: Linting (pip install flake8)
+
+# For enhanced functionality (optional):
+# numpy: For advanced numerical operations in search algorithms
+# scipy: For enhanced similarity calculations
+# nltk: For advanced text processing features

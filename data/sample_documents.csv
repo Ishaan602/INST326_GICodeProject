@@ -1,0 +1,9 @@
+id,title,content,tags
+doc1,"Python Programming Basics","Learn Python programming fundamentals including variables, functions, and control structures. Python is a versatile language great for beginners.","programming,python,tutorial"
+doc2,"Data Science with Python","Explore data science concepts using Python libraries like pandas, numpy, and matplotlib. Analyze datasets and create visualizations.","data-science,python,analytics"
+doc3,"Web Development Guide","Complete guide to web development using HTML, CSS, and JavaScript. Build responsive websites and web applications.","web,html,css,javascript"
+doc4,"Machine Learning Introduction","Introduction to machine learning concepts and algorithms. Learn about supervised and unsupervised learning techniques.","machine-learning,ai,algorithms"
+doc5,"Database Design Principles","Learn fundamental database design principles, normalization, and SQL queries. Design efficient database schemas.","database,sql,design"
+doc6,"Food Safety Guidelines","Comprehensive food safety guidelines for restaurants and food service. Proper handling, storage, and preparation techniques.","food,safety,restaurant"
+doc7,"Recipe Collection","Collection of popular recipes including appetizers, main dishes, and desserts. Step-by-step cooking instructions.","recipes,cooking,food"
+doc8,"Nutrition Facts Guide","Guide to understanding nutrition facts and making healthy food choices. Information about vitamins, minerals, and dietary requirements.","nutrition,health,food"

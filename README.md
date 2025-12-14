@@ -1,52 +1,194 @@
-# INST326 Information Retrieval System
+# INST326 Search and Order Management System
 
-A comprehensive Python library for information retrieval, text processing, and data validation operations. Now featuring object-oriented design with Document and SearchQuery classes that encapsulate related functionality for building sophisticated search systems.
+A comprehensive Python system that integrates document search capabilities with user management and order processing. Features complete data persistence, multiple import/export formats, and a sophisticated object-oriented architecture with inheritance and polymorphism.
 
-## 🆕 Project 2 Update: Object-Oriented Design
+## � Project 4: Complete System Integration
 
-This project has been transformed from a function-based library into an object-oriented system with two core classes:
+This project has evolved through multiple phases:
+- **Project 1**: Core function library for text processing and information retrieval
+- **Project 2**: Object-oriented design with Document and SearchQuery classes
+- **Project 3**: Advanced OOP with inheritance, polymorphism, and abstract base classes
+- **Project 4**: Complete system integration with data persistence and I/O capabilities
 
-- **Document Class**: Represents individual documents with integrated text processing capabilities
-- **SearchQuery Class**: Handles query processing, normalization, and various search operations
+## Team Members
 
-The original Project 1 functions are now integrated into these classes while remaining available as standalone functions.
+- **Ishaan Patel**: System architecture, persistence layer, and integration
+- **Rushan Heaven**: Search engine implementation and text processing
+- **Zachary Tong**: User management and order processing system
 
-# Team Memebr Names
-Ishaan Patel, Rushan Heaven, Zachary Tong
-# Contribution
-### Ishaan Patel
-Functions: 
-1. filter_sort_paginate_results
-2. highlight_query_terms
-3. normalize_query
-4. truncate_snippet 
-5. count_term_frequency
-- Formated all files
-- Created docs, demo_scripts, init, read me, and requirments
+## Domain Problem
 
-### Rushan Heaven
-Funtions: 
-1. clean_text
-2. build_inverted_index 
-3. boolean_retrieval
-4. rank_documents
-5. semantic_search
+Our system addresses the dual needs of:
+1. **Information Retrieval**: Sophisticated document search with multiple search engines
+2. **Order Management**: Food ordering and user management system
 
-### Zachary Tong
-Functions:
-1) validate_information
-2) format_query
-3) calculate_user_distance
-4) parse_user_order
-5) process_order_data
-##  Features
+This combination serves educational institutions, restaurants, or businesses that need both knowledge management and ordering capabilities.
 
-### Core Information Retrieval Functions
-- **Search & Ranking**: Filter, score, and rank documents based on query terms
-- **Text Processing**: Normalize queries, count term frequencies, and process text
-- **Highlighting**: Highlight search terms in results with customizable tags
-- **Pagination**: Handle large result sets with safe pagination
-- **Text Truncation**: Intelligently truncate text at word boundaries
+## Key Features
+
+### 🔍 Advanced Search System
+- **Multiple Search Engines**: Boolean, Ranked, and Semantic search with polymorphic design
+- **Abstract Base Classes**: Enforced interface contracts through ABC
+- **Inheritance Hierarchy**: Specialized search engines with shared functionality
+- **Query Processing**: Sophisticated normalization and term analysis
+
+### 📊 Data Persistence & I/O
+- **State Management**: Save/load complete system state between sessions
+- **Import Capabilities**: CSV, JSON, and XML document import
+- **Export Features**: Multiple format export for search results and reports
+- **Error Handling**: Robust file I/O with graceful error management
+
+### 👤 User & Order Management
+- **User Profiles**: Persistent user preferences and search history
+- **Order Processing**: Complete food ordering workflow
+- **Session Tracking**: User activity monitoring and analytics
+## Installation & Setup
+
+### Requirements
+- Python 3.8+
+- No external dependencies required (uses only standard library)
+
+### Setup Instructions
+
+1. **Clone the repository**:
+```bash
+git clone <repository-url>
+cd INST326_GICodeProject
+```
+
+2. **No installation needed** - the system uses only Python standard library
+
+3. **Initialize with sample data**:
+```bash
+# Import sample documents
+python main.py --import-csv data/sample_documents.csv
+python main.py --import-xml data/sample_documents.xml
+```
+
+## Usage Guide
+
+### Command Line Interface
+
+**Basic search**:
+```bash
+python main.py --search "Python programming" --engine ranked
+```
+
+**Search with user tracking**:
+```bash
+python main.py --search "data science" --user-id "student123" --engine semantic
+```
+
+**Import and export**:
+```bash
+# Import from CSV
+python main.py --import-csv your_documents.csv
+
+# Search and export results
+python main.py --search "machine learning" --export results.json --export-format json
+```
+
+**Generate reports**:
+```bash
+python main.py --report summary
+python main.py --report user_activity
+python main.py --report popular_searches
+```
+
+**Interactive mode**:
+```bash
+python main.py --interactive
+```
+
+### Python API Usage
+
+```python
+from main import SearchOrderSystem
+
+# Initialize system
+system = SearchOrderSystem("data")
+
+# Search documents
+results = system.search_documents("Python", "ranked", "user123")
+
+# Place order
+order = system.place_order("user123", "pizza, soda")
+
+# Generate reports
+report = system.generate_report("summary")
+
+# Save state
+system.save_system_state()
+```
+
+## Testing
+
+### Run the complete test suite:
+```bash
+python tests/test_project4.py
+```
+
+### Run specific component tests:
+```bash
+# Test search system (inheritance/polymorphism)
+python tests/test_search_system.py
+
+# Test Team 3 composition patterns
+python tests/Team_member_3_Summary.py
+```
+
+### Test Coverage
+- **System Integration**: Complete workflows from import to export
+- **Data Persistence**: Save/load state functionality
+- **I/O Operations**: CSV, JSON, XML import/export
+- **Search Engines**: All three engines with various queries
+- **Error Handling**: File errors, invalid data, edge cases
+- **User Management**: Profile creation, history tracking
+- **Order Processing**: Complete order lifecycle
+
+## Architecture Overview
+
+### Core Components
+
+1. **SearchOrderSystem**: Main application class coordinating all functionality
+2. **Search Engine Hierarchy**: Abstract base class with concrete implementations
+3. **Document Management**: Document class with text processing capabilities
+4. **User Management**: UserProfile with preferences and history
+5. **Persistence Layer**: JSON-based state management with error handling
+
+### Design Patterns Used
+
+- **Abstract Base Classes**: Enforced interfaces for search engines
+- **Inheritance**: Specialized search engine implementations
+- **Polymorphism**: Unified search interface with engine-specific behavior
+- **Composition**: System components working together
+- **Context Managers**: Proper file handling with `with` statements
+
+## File Structure
+
+```
+INST326_GICodeProject/
+├── main.py                 # Main application entry point
+├── data/                   # Data storage directory
+│   ├── documents.json      # Persisted documents
+│   ├── users.json          # User profiles and history
+│   ├── orders.json         # Order history
+│   ├── session.json        # Session data
+│   ├── sample_documents.csv # Sample CSV import
+│   └── sample_documents.xml # Sample XML import
+├── src/                    # Source code modules
+│   ├── search_system.py    # Search engine hierarchy
+│   ├── document.py         # Document class
+│   ├── search_query.py     # Query processing
+│   ├── userprofile.py      # User management
+│   └── library_name.py     # Original function library
+├── tests/                  # Test suite
+│   ├── test_project4.py    # Comprehensive system tests
+│   ├── test_search_system.py # Search engine tests
+│   └── Team_member_3_Summary.py # Composition demo
+├── docs/                   # Documentation
+└── README.md              # This file
+```
 
 ### Utility Functions  
 - **Data Validation**: Validate and format user information

@@ -1,0 +1,24 @@
+{
+  "test123": {
+    "preferences": {},
+    "search_history": [
+      {
+        "query": "Python programming",
+        "engine": "ranked",
+        "timestamp": "2025-12-14T14:38:42.829148",
+        "results_count": 8
+      }
+    ]
+  },
+  "user1": {
+    "preferences": {},
+    "search_history": [
+      {
+        "query": "Python programming",
+        "engine": "ranked",
+        "timestamp": "2025-12-14T14:39:00.708066",
+        "results_count": 8
+      }
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documents>
+    <document id="xml1">
+        <title>Advanced Python Concepts</title>
+        <content>Deep dive into advanced Python concepts including decorators, generators, context managers, and metaclasses. Master Python's more sophisticated features.</content>
+        <tags>
+            <tag>python</tag>
+            <tag>advanced</tag>
+            <tag>programming</tag>
+        </tags>
+    </document>
+    <document id="xml2">
+        <title>Restaurant Menu Planning</title>
+        <content>Strategic guide to restaurant menu planning including cost analysis, seasonal ingredients, and customer preferences. Design profitable and appealing menus.</content>
+        <tags>
+            <tag>restaurant</tag>
+            <tag>menu</tag>
+            <tag>business</tag>
+        </tags>
+    </document>
+    <document id="xml3">
+        <title>Food Delivery Systems</title>
+        <content>Modern food delivery systems and logistics. Optimize delivery routes, manage orders, and integrate with popular food delivery platforms.</content>
+        <tags>
+            <tag>delivery</tag>
+            <tag>logistics</tag>
+            <tag>food</tag>
+        </tags>
+    </document>
+</documents>

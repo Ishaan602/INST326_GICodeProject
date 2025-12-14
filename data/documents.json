@@ -1,0 +1,83 @@
+{
+  "doc1": {
+    "id": "doc1",
+    "title": "Python Programming Basics",
+    "content": "Learn Python programming fundamentals including variables, functions, and control structures. Python is a versatile language great for beginners.",
+    "tags": [
+      "programming",
+      "python",
+      "tutorial"
+    ]
+  },
+  "doc2": {
+    "id": "doc2",
+    "title": "Data Science with Python",
+    "content": "Explore data science concepts using Python libraries like pandas, numpy, and matplotlib. Analyze datasets and create visualizations.",
+    "tags": [
+      "data-science",
+      "python",
+      "analytics"
+    ]
+  },
+  "doc3": {
+    "id": "doc3",
+    "title": "Web Development Guide",
+    "content": "Complete guide to web development using HTML, CSS, and JavaScript. Build responsive websites and web applications.",
+    "tags": [
+      "web",
+      "html",
+      "css",
+      "javascript"
+    ]
+  },
+  "doc4": {
+    "id": "doc4",
+    "title": "Machine Learning Introduction",
+    "content": "Introduction to machine learning concepts and algorithms. Learn about supervised and unsupervised learning techniques.",
+    "tags": [
+      "machine-learning",
+      "ai",
+      "algorithms"
+    ]
+  },
+  "doc5": {
+    "id": "doc5",
+    "title": "Database Design Principles",
+    "content": "Learn fundamental database design principles, normalization, and SQL queries. Design efficient database schemas.",
+    "tags": [
+      "database",
+      "sql",
+      "design"
+    ]
+  },
+  "doc6": {
+    "id": "doc6",
+    "title": "Food Safety Guidelines",
+    "content": "Comprehensive food safety guidelines for restaurants and food service. Proper handling, storage, and preparation techniques.",
+    "tags": [
+      "food",
+      "safety",
+      "restaurant"
+    ]
+  },
+  "doc7": {
+    "id": "doc7",
+    "title": "Recipe Collection",
+    "content": "Collection of popular recipes including appetizers, main dishes, and desserts. Step-by-step cooking instructions.",
+    "tags": [
+      "recipes",
+      "cooking",
+      "food"
+    ]
+  },
+  "doc8": {
+    "id": "doc8",
+    "title": "Nutrition Facts Guide",
+    "content": "Guide to understanding nutrition facts and making healthy food choices. Information about vitamins, minerals, and dietary requirements.",
+    "tags": [
+      "nutrition",
+      "health",
+      "food"
+    ]
+  }
+}

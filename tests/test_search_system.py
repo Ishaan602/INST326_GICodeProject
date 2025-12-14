@@ -1,5 +1,5 @@
 """
-Test Suite for Search System Module - Team Member 2
+Test Suite for Search System Module
 
 Comprehensive tests for inheritance, polymorphism, abstract classes,
 and function library integration.
